@@ -1,58 +1,43 @@
-//C Program to Implement Gauss Jordan Method
-#include<stdio.h>
-
-int n;
-//Converts the Augmented matrix to Diagonal form
-void convertToDiagonal(float a[][n+1],int n)
+#include <stdio.h>
+#include <math.h>
+int main()
 {
-    int i,j,x,y,k;
-    float ratio;
-    for( i=0;i<n;i++)
-    {
-      for(j=0;j<n;j++)
-      {
-         if(j!=i)
-         {
-             ratio=a[j][i]/a[i][i];
-             for(k=0;k<n+1;k++)
-                a[j][k]=a[j][k] -( ratio * a[i][k]);
-         } 
-      }
-     }
-}
-
-
-//prints the Value of Unknowns
-void printUnknowns(float a[][n+1],int n)
-{  
-   int i;
-   printf("Values of unknowns are:\n");
-   for(int i=0; i<n; i++)
+   int n;
+   printf("Enter the order of matrix: ");
+   scanf("%d",&n);
+   float a[20][20], x[10], sum=0.0;
+   for(int i=1; i<=n; i++)
    {
-      for(int j=0; j<n+1; j++)
+      for(int j=1; j<=n+1; j++)
       {
-         printf("%f  ",a[i][j]);
+         scanf("%f",&a[i][j]);
+      }
+   }
+   for(int j=1; j<=n; j++)
+   {
+      for(int i=1; i<=n; i++)
+      {
+         if(i!=j)
+         {
+            float c=a[i][j]/a[j][j];
+            for(int k=1; k<=n+1; k++)
+              a[i][k]=a[i][k]-c*a[j][k];
+         }
+      }
+   }
+   // Print the matrix
+   for (int i = 1; i <= n; i++)
+   {
+      for (int j = 1; j <= n; j++)
+      {
+         printf("%0.2f ", a[i][j]);
       }
       printf("\n");
    }
-   for(i=0;i<n;i++)
-      printf("Value of Variable %d=%f\n",i,a[i][n]/a[i][i]);
-   
-}
-int main()
-{
-    int i,j,k,x,y;
-    float ratio;
-    printf("Enter no of Unknowns\n");
-    scanf("%d",&n);
-    float a[n][n+1];
-    printf("Enter the Augmented Matrix\n");
-    for(int i=0;i<n;i++)
-    {
-     for(int j=0;j<n+1;j++)
-        scanf("%f",&a[i][j]);
-    }
-    convertToDiagonal(a,n);
-    printUnknowns(a,n); 
-    return 0;
+   for(int i=1; i<=n; i++)
+   {
+      x[i]=a[i][n+1]/a[i][i];
+      printf("\nx[%d]: %f",i,x[i]);
+   }
+   return 0;
 }

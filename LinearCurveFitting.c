@@ -8,7 +8,7 @@ int main()
     scanf("%d", &n);
     printf("Enter the value of x: ");
     for (int i = 0; i <= n - 1; i++)
-        scanf("%d", &x[n]);
+        scanf("%d", &x[i]);
     printf("Enter the value of y: ");
     for (int i = 0; i <= n - 1; i++)
         scanf("%d", &y[i]);
@@ -21,6 +21,7 @@ int main()
         sumxy = sumxy + x[i] * y[i];
     }
     float a = ((sumx2 * sumy - sumx * sumxy) * 1.0 / (n * sumx2 - sumx * sumx) * 1.0);
-    float b = ((n * sumxy - sumx * sumy) * 1.0 / (n * sumx2 - sumx * sumx) * 1.0);
+    //float b = ((n * sumxy - sumx * sumy) * 1.0 / (n * sumx2 - sumx * sumx) * 1.0);
+    float b=(sumxy-a*sumx)*1.0 /sumx2*1.0;
     printf("\n\nThe line is Y=%3.3f +%3.3f X", a, b);
 }

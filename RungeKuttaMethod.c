@@ -1,5 +1,8 @@
 #include <stdio.h>
-#define f(x, y) (y * y - x * x) / (y * y + x * x)
+float f(float x, float y)
+{
+ return (y * y - x * x) / (y * y + x * x);
+}
 int main()
 {
    float x0, y0, xn, h, yn, k1, k2 , k3, k4, k;

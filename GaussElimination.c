@@ -1,42 +1,51 @@
-#include<stdio.h>
+#include <stdio.h>
+#include <math.h>
 int main()
 {
-    int rows;
-    scanf("%d",&rows);
-    int cols = rows +1;
-    float arr[rows][cols];
-    for(int i = 0 ; i < rows ;i++)
-        for(int j = 0 ; j < cols ; j++)
-            scanf("%f",&arr[i][j]);
-    for(int i = 0; i < rows; i++)
+    float a[20][20], x[10], sum = 0.0;
+    printf("Enter the order of matrix: ");
+    int n, i, j;
+    scanf("%d", &n);
+    for (i = 1; i <= n; i++)
     {
-        for(int j = i+1; j < rows; j++)
+        for (j = 1; j <= (n + 1); j++)
         {
-            float mul = arr[j][i]/arr[i][i];
-            for(int k = 0 ; k < cols; k++)
-                arr[j][k]-=arr[i][k]*mul;
+            printf("a[%d][%d] : ", i, j);
+            scanf("%f", &a[i][j]);
         }
     }
-    for(int i = 0 ; i < rows; i++)
+    for (j = 1; j <= n; j++)
     {
-        for(int j = 0 ;j < cols; j++)
-            printf("%f\t",arr[i][j]);
+        for (i = 1; i <= n; i++)
+        {
+            if (i > j)
+            {
+                float c = a[i][j] / a[j][j];
+                for (int k = 1; k <= n + 1; k++)
+                    a[i][k] = a[i][k] - c * a[j][k];
+            }
+        }
+    }
+    x[n] = a[n][n + 1] / a[n][n];
+    for (int i = n - 1; i > 0; i--)
+    {
+        sum = 0.0;
+        for (int j = i + 1; j <= n; j++)
+            sum = sum + a[i][j] * x[j];
+        x[i] = (a[i][n + 1] - sum) / a[i][i];
+    }
+    // Print the matrix
+    for (int i = 1; i <= n; i++)
+    {
+        for (int j = 1; j <= n; j++)
+        {
+            printf("%0.2f ", a[i][j]);
+        }
         printf("\n");
     }
-    float roots[rows];
-    roots[rows-1] = arr[rows-1][cols-1]/arr[rows-1][rows-1];
-    for(int i=rows-2; i>=0; i--)
+    for(int i=1;i<=n; i++)
     {
-       float temp=0.0;
-       for(int j=i+1; i<rows;i++)
-       {
-           temp+=arr[i][j]*roots[j];
-       }
-       temp=arr[i][cols-1]-temp;
-       temp=temp/arr[i][i];
-       roots[i]=temp;
+     printf("\nx%d=%f\t",i,x[i]);
     }
-    for(int i=0; i<rows; i++)
-     printf("x=%f  y=%f  z=%f\n");
-     
+    return 0;
 }
